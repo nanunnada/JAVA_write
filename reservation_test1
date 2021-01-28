@@ -1,0 +1,78 @@
+package test2;
+import java.util.Scanner;
+
+public class reservation_test1 {
+
+	//public static check
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int seat[]= {1,2,3,4,5,6,7,8,9,10};//창가:1~4, 내부석 5~8, 좌석 9~10(단체) 
+		int customer = 0;
+		int reservation_seat[] = {0,0,0,0,0,0,0,0,0,0};	
+		int seat_window = 0;
+		int seat_table = 0;
+		int seat_down = 0;
+	
+		while(customer < 100) {
+			System.out.println("반갑습니다 손님. 안내 도와드리겠습니다.\n창가, 내부석, 좌석 중 원하는 곳으로 골라주세요."
+					+ "\n모두 만석일 경우 종료 라고 적어주세요.");
+			String table = scanner.nextLine();
+			System.out.println(table);
+			switch(table) {
+			case "창가":
+				for(int i=0;i<4;i++) {
+					if(reservation_seat[i] == 0 && seat_window < 4 ) {
+						System.out.print(seat[i]);
+						System.out.println("번 테이블로 안내해 드리겠습니다.\n");
+						reservation_seat[i] = i+1;
+						//System.out.println(reservation_seat[i]);
+						seat_window++;
+						break;
+						}
+					else if(seat_window >= 4 ) {
+						System.out.println("만석입니다. 다른 곳으로 선택해주세요.\n");
+						break;
+					}
+					}break;
+			case "내부석":
+				for(int j=4;j<8;j++) {
+					if(reservation_seat[j] == 0 && seat_table < 4) {
+						System.out.print(seat[j]);
+						System.out.println("번 테이블로 안내해 드리겠습니다.\n");
+						reservation_seat[j] = j+1;
+						seat_table++;
+						break;
+						}
+					else if(seat_table >= 4) {
+						System.out.println("만석입니다. 다른 곳으로 선택해주세요.\n");
+						break;
+					}
+					}break;
+			case "좌석":
+				for(int k=8;k<10;k++) {
+					if(reservation_seat[k] == 0 && seat_down <= 1) {
+						System.out.print(seat[k]);
+						System.out.println("번 테이블로 안내해 드리겠습니다.\n");
+						reservation_seat[k] = k+1;
+						seat_down++;
+						break;
+						}
+					else if(seat_down > 1) {
+						System.out.println("만석입니다. 다른 곳으로 선택해주세요.\n");
+						break;
+					}
+					}break;
+			case "종료" : System.out.println("만석입니다. 잠시 대기해주시기 바랍니다."); 
+						customer += 100; break;
+			default: 
+				System.out.println("잘못된 행동입니다. 다시 선택해 주십시오.\n");
+				break;
+				
+			}
+		}
+		
+		scanner.close();
+		
+		
+	}
+}
