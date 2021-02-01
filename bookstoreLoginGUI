@@ -1,0 +1,124 @@
+package test2;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class storeLogin extends JFrame {
+	JTextField t1 = new JTextField(8);
+	JTextField t2 = new JTextField(8);
+	String ID[] = {null, null, null, null, null};
+	String PASSWORD[] = {null, null, null, null, null};
+	String TEXTID = "A";
+	String TEXTPWD = "A";
+	
+	storeLogin()
+	{
+		System.out.println("시작");
+		setTitle("로그인 화면");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container c = getContentPane();
+		c.setLayout(new FlowLayout());
+		
+		c.add(new JLabel("ID  "));
+		c.add(t1);
+		t1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // ENTER을 눌러야함.
+				JTextField t1_t = (JTextField)e.getSource();
+				TEXTID = t1_t.getText();
+				System.out.println("ID칸 입력 확인");
+			}
+		});
+
+		c.add(new JLabel("PWD "));
+		c.add(t2);
+		t2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField t2_t = (JTextField)e.getSource();
+				TEXTPWD = t2_t.getText();
+				System.out.println("PWD칸 입력 확인");
+			}
+		});
+		
+		JButton btn = new JButton("생성");
+		c.add(btn);
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("생성")) {
+			for(int j=0;j<ID.length;j++) {
+				if(ID[j]==TEXTID) {
+					System.out.println("중복된 아이디입니다.");
+					System.exit(0);
+				}
+			}
+			for(int i=0;i<ID.length;i++) {
+				if(ID[i] == null) {
+							ID[i] = TEXTID;
+							break;						
+					}
+				}
+			for(int i=0;i<PASSWORD.length;i++) {
+				if(PASSWORD[i] == null) {
+					PASSWORD[i] = TEXTPWD;
+					//System.out.println(PASSWORD[i]);
+					break;
+				}
+			}
+		}
+			else {
+				System.out.println("잘못된 접근입니다.");
+			}
+		}});
+		
+		JButton btn1 = new JButton("로그인");
+		c.add(btn1);
+		btn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("로그인")) {
+				for(int i=0;i<ID.length;i++) {
+					if(ID[i]==TEXTID && PASSWORD[i]==TEXTPWD) {
+						System.out.println("ID : "+ID[i]);
+						System.out.println("PWD : "+PASSWORD[i]);
+						b.setText("로그인 성공");
+					}
+				}
+				
+				
+			}
+			}
+			
+		});
+	
+		
+		setSize(300,200);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new storeLogin();
+	}
+
+}
+
+
+class MyActionListener implements ActionListener{
+	public String ID[] = new String[100];
+	public String PASSWORD[] = new String[100];
+	public void actionPerformed(ActionEvent e) {
+		JButton b = (JButton)e.getSource();
+		JTextField t = (JTextField)e.getSource();
+		if(b.getText().equals("생성")) {
+			b.setText("완료");
+			/*for(int i=0;i<ID.length;i++) {
+				if(ID[i] == t &&)
+			}*/
+		}
+		else if(b.getText().equals("로그인")) {
+			b.setText("로그인1");
+		}
+		else {
+		b.setText("잘못된 시도입니다.");
+		}
+	}
+}
